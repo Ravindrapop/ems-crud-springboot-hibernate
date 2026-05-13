@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ems.dao.EmployeeDao;
+import com.ems.exception.ResourceNotFoundException;
 import com.ems.model.Employee;
 
 import jakarta.transaction.Transactional;
@@ -40,6 +41,26 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Employee response = employeeDao.createEmployee(employee);
 		
 		return response;
+	}
+	
+	@Override
+	public Employee update(Long id, Employee employee) {
+		
+		Employee resonseEmployee = employeeDao.getEmployeeById(id);
+		
+		if(resonseEmployee==null) {
+			
+			throw new ResourceNotFoundException("Employee not found with id"+id);
+			
+		}
+		
+		resonseEmployee.setName(employee.getName());
+		resonseEmployee.setSalary(employee.getSalary());
+		
+		return employeeDao.update(resonseEmployee);
+		
+		
+		
 	}
 
 }
