@@ -59,8 +59,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 		return employeeDao.update(resonseEmployee);
 		
+	}
+	
+	@Override
+	public void delete(Long id) {
 		
+		Employee employee = employeeDao.getEmployeeById(id);
 		
+		if(employee==null) {
+			throw new ResourceNotFoundException("Employee not found with id "+id);
+		}
+		
+		employeeDao.delete(employee);
 	}
 
 }

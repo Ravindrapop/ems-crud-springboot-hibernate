@@ -52,5 +52,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public Employee update(Employee employee) {
 		return (Employee) sessionFactory.getCurrentSession().merge(employee);
 	}
+	
+	@Override
+	public void delete(Employee employee) {
+		sessionFactory.getCurrentSession().remove(employee);
+	}
 
 }
